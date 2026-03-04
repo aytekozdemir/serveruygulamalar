@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-import requests
 
 # app.py'nin aradığı weather_bp değişkeni (Blueprint) burada tanımlanıyor
 weather_bp = Blueprint('weather_api', __name__)
@@ -9,12 +8,9 @@ def hava_durumu_getir():
     # Frontend'den (HTML'den) gelen şehir bilgisini alıyoruz
     sehir = request.args.get('sehir', 'İstanbul')
     
-    # Not: Eğer önceden kendi yazdığınız özel bir API entegrasyonu varsa, 
-    # o mantığı buraya entegre edebilirsiniz. Şimdilik sitenin çalışması için
-    # örnek bir veri döndürüyoruz.
-    
+    # Sitenin çökmemesi ve veriyi hemen göstermesi için geçici örnek veri:
     ornek_veri = {
-        "sehir": sehir,
+        "sehir": sehir.capitalize(),
         "sicaklik": 22,
         "durum": "Güneşli",
         "mesaj": "Veri başarıyla çekildi."
