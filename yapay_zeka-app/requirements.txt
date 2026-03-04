@@ -1,0 +1,6 @@
+flask>=2.0
+requests>=2.28
+pytesseract>=0.3
+Pillow>=9.0
+deep-translator>=1.11
+werkzeug>=2.0
