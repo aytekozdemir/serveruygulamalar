@@ -1,4 +1,6 @@
 from flask import Flask
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from hava_durumu_app.app import app as hava_app
 
 app = Flask(__name__)
 
@@ -33,8 +35,11 @@ def home():
     </html>
     """
 
-from hava_durumu_app.app import app as hava_app
-app.register_blueprint(hava_app, url_prefix='/hava')
+# İŞTE KÖPRÜ BURASI: İki farklı uygulamayı (Portal ve Hava Durumu) birbirine bağlıyoruz
+app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
+    '/hava': hava_app
+})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    from werkzeug.serving import run_simple
+    run_simple('0.0.0.0', 8080, app, use_reloader=True)
