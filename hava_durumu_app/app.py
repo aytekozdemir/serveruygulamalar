@@ -13,7 +13,7 @@ except Exception:
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, render_template, send_from_directory
-from weather_api import weather_bp
+from hava_durumu_app.weather_api import weather_bp
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'hava_durumu_secret_key_2024'
