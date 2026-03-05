@@ -1,0 +1,36 @@
+{
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "tr",
+  "categories": [
+    "utilities"
+  ],
+  "name": "Hava Durumu",
+  "short_name": "Hava",
+  "description": "Anlık hava durumu ve tahmin uygulamasi",
+  "theme_color": "#0984e3",
+  "background_color": "#74b9ff",
+  "icons": [
+    {
+      "src": "static/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "static/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "https://hava-durumu.articnc.online/"
+}

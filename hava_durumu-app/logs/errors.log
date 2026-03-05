@@ -1,0 +1,42 @@
+2026-02-19 21:54:37,494 ERROR: Exception on /dosya_analizi/api/upload_file [POST] [in C:\visualdeneme\.venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\yazilimyedekler\visualdeneme15\dosya_analizi_proxy.py", line 28, in proxy
+    resp = requests.request(
+        method=request.method,
+    ...<7 lines>...
+        timeout=120
+    )
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\sessions.py", line 575, in request
+    prep = self.prepare_request(req)
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\sessions.py", line 484, in prepare_request
+    p.prepare(
+    ~~~~~~~~~^
+        method=request.method.upper(),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        hooks=merge_hooks(request.hooks, self.hooks),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 370, in prepare
+    self.prepare_body(data, files, json)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 555, in prepare_body
+    (body, content_type) = self._encode_files(files, data)
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 149, in _encode_files
+    raise ValueError("Data must not be a string.")
+ValueError: Data must not be a string.
+2026-02-19 21:54:37,499 ERROR: 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in d:\yazilimyedekler\visualdeneme15\basit_hesap_makinesi.py:434]

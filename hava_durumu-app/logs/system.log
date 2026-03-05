@@ -1,0 +1,163 @@
+2026-02-19 21:48:47,078 - INFO - Uygulama baþlatýldý
+2026-02-19 21:48:49,044 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-02-19 21:48:49,045 - INFO - Added job "check_prayer_times_and_notify" to job store "default"
+2026-02-19 21:48:49,045 - INFO - Scheduler started
+2026-02-19 21:48:49,055 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.20:5000
+2026-02-19 21:48:49,055 - INFO - [33mPress CTRL+C to quit[0m
+2026-02-19 21:48:51,510 - INFO - Request from 127.0.0.1 by Anonymous: GET /hava-durumu [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:48:53,583 - INFO - Request completed in 2.073s - Status: 200
+2026-02-19 21:48:53,584 - INFO - 127.0.0.1 - - [19/Feb/2026 21:48:53] "GET /hava-durumu HTTP/1.1" 200 -
+2026-02-19 21:48:53,759 - INFO - Request from 127.0.0.1 by Anonymous: GET /hava-durumu/api/weather [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:48:56,352 - INFO - Request completed in 2.592s - Status: 200
+2026-02-19 21:48:56,353 - INFO - 127.0.0.1 - - [19/Feb/2026 21:48:56] "GET /hava-durumu/api/weather?city=Ýstanbul HTTP/1.1" 200 -
+2026-02-19 21:48:56,525 - INFO - Request from 127.0.0.1 by Anonymous: GET /hava-durumu/api/weather [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:48:58,860 - INFO - Request completed in 2.335s - Status: 200
+2026-02-19 21:48:58,861 - INFO - 127.0.0.1 - - [19/Feb/2026 21:48:58] "GET /hava-durumu/api/weather?city=Bursa HTTP/1.1" 200 -
+2026-02-19 21:49:49,050 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:49:49 +03)" (scheduled at 2026-02-19 21:49:49.044637+03:00)
+2026-02-19 21:49:49,051 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:50:49 +03)" executed successfully
+2026-02-19 21:50:49,056 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:51:49 +03)" (scheduled at 2026-02-19 21:50:49.044637+03:00)
+2026-02-19 21:50:49,057 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:51:49 +03)" executed successfully
+2026-02-19 21:51:49,057 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:52:49 +03)" (scheduled at 2026-02-19 21:51:49.044637+03:00)
+2026-02-19 21:51:49,059 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:52:49 +03)" executed successfully
+2026-02-19 21:52:49,053 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:53:49 +03)" (scheduled at 2026-02-19 21:52:49.044637+03:00)
+2026-02-19 21:52:49,054 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:53:49 +03)" executed successfully
+2026-02-19 21:53:49,060 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:54:49 +03)" (scheduled at 2026-02-19 21:53:49.044637+03:00)
+2026-02-19 21:53:49,061 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:54:49 +03)" executed successfully
+2026-02-19 21:54:37,015 - INFO - Request from 127.0.0.1 by Anonymous: POST /dosya_analizi/api/upload_file [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb]
+2026-02-19 21:54:37,494 - ERROR - Exception on /dosya_analizi/api/upload_file [POST]
+Traceback (most recent call last):
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\yazilimyedekler\visualdeneme15\dosya_analizi_proxy.py", line 28, in proxy
+    resp = requests.request(
+        method=request.method,
+    ...<7 lines>...
+        timeout=120
+    )
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\sessions.py", line 575, in request
+    prep = self.prepare_request(req)
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\sessions.py", line 484, in prepare_request
+    p.prepare(
+    ~~~~~~~~~^
+        method=request.method.upper(),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        hooks=merge_hooks(request.hooks, self.hooks),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 370, in prepare
+    self.prepare_body(data, files, json)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 555, in prepare_body
+    (body, content_type) = self._encode_files(files, data)
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\requests\models.py", line 149, in _encode_files
+    raise ValueError("Data must not be a string.")
+ValueError: Data must not be a string.
+2026-02-19 21:54:37,499 - ERROR - 500 error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-02-19 21:54:37,630 - INFO - Request completed in 0.615s - Status: 500
+2026-02-19 21:54:37,631 - INFO - 127.0.0.1 - - [19/Feb/2026 21:54:37] "[35m[1mPOST /dosya_analizi/api/upload_file HTTP/1.1[0m" 500 -
+2026-02-19 21:54:37,638 - ERROR - Error on request:
+Traceback (most recent call last):
+  File "C:\visualdeneme\.venv\Lib\site-packages\werkzeug\serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+    ~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\werkzeug\serving.py", line 331, in execute
+    application_iter = app(environ, start_response)
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 1527, in wsgi_app
+    ctx.pop(error)
+    ~~~~~~~^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\ctx.py", line 426, in pop
+    app_ctx.pop(exc)
+    ~~~~~~~~~~~^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\ctx.py", line 262, in pop
+    self.app.do_teardown_appcontext(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\flask\app.py", line 1382, in do_teardown_appcontext
+    self.ensure_sync(func)(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "d:\yazilimyedekler\visualdeneme15\log_middleware.py", line 104, in teardown
+    error_details=f'Path: {request.path}',
+                           ^^^^^^^^^^^^
+  File "C:\visualdeneme\.venv\Lib\site-packages\werkzeug\local.py", line 318, in __get__
+    obj = instance._get_current_object()
+  File "C:\visualdeneme\.venv\Lib\site-packages\werkzeug\local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2026-02-19 21:54:49,045 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:55:49 +03)" (scheduled at 2026-02-19 21:54:49.044637+03:00)
+2026-02-19 21:54:49,045 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:55:49 +03)" executed successfully
+2026-02-19 21:55:45,456 - INFO - Request from 127.0.0.1 by Anonymous: GET / [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:55:45,457 - INFO - Request completed in 0.000s - Status: 302
+2026-02-19 21:55:45,457 - INFO - 127.0.0.1 - - [19/Feb/2026 21:55:45] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 21:55:45,569 - INFO - Request from 127.0.0.1 by Anonymous: GET /dashboard [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:55:45,582 - INFO - Request completed in 0.013s - Status: 200
+2026-02-19 21:55:45,582 - INFO - 127.0.0.1 - - [19/Feb/2026 21:55:45] "GET /dashboard HTTP/1.1" 200 -
+2026-02-19 21:55:45,715 - INFO - Request from 127.0.0.1 by Anonymous: GET /api/apps/status [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:55:45,716 - INFO - Request completed in 0.000s - Status: 200
+2026-02-19 21:55:45,716 - INFO - 127.0.0.1 - - [19/Feb/2026 21:55:45] "GET /api/apps/status HTTP/1.1" 200 -
+2026-02-19 21:55:49,047 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:56:49 +03)" (scheduled at 2026-02-19 21:55:49.044637+03:00)
+2026-02-19 21:55:49,048 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:56:49 +03)" executed successfully
+2026-02-19 21:56:49,049 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:57:49 +03)" (scheduled at 2026-02-19 21:56:49.044637+03:00)
+2026-02-19 21:56:49,050 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:57:49 +03)" executed successfully
+2026-02-19 21:57:49,051 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:58:49 +03)" (scheduled at 2026-02-19 21:57:49.044637+03:00)
+2026-02-19 21:57:49,052 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:58:49 +03)" executed successfully
+2026-02-19 21:58:49,052 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:59:49 +03)" (scheduled at 2026-02-19 21:58:49.044637+03:00)
+2026-02-19 21:58:49,053 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 21:59:49 +03)" executed successfully
+2026-02-19 21:59:17,812 - INFO - Request from 127.0.0.1 by Anonymous: GET /music [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:17,819 - INFO - Request completed in 0.007s - Status: 200
+2026-02-19 21:59:17,821 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:17] "GET /music?pwa=true HTTP/1.1" 200 -
+2026-02-19 21:59:18,571 - INFO - Request from 127.0.0.1 by Anonymous: GET /api/music/playlists/global [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:18,573 - INFO - Request completed in 0.002s - Status: 200
+2026-02-19 21:59:18,573 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:18] "GET /api/music/playlists/global HTTP/1.1" 200 -
+2026-02-19 21:59:18,667 - INFO - Request from 127.0.0.1 by Anonymous: GET /api/music/playlists/1/songs [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:18,668 - INFO - Request completed in 0.001s - Status: 200
+2026-02-19 21:59:18,669 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:18] "GET /api/music/playlists/1/songs HTTP/1.1" 200 -
+2026-02-19 21:59:20,779 - INFO - Request from 127.0.0.1 by Anonymous: POST /api/get-audio-stream [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:23,230 - INFO - Request completed in 2.451s - Status: 200
+2026-02-19 21:59:23,231 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:23] "POST /api/get-audio-stream HTTP/1.1" 200 -
+2026-02-19 21:59:40,163 - INFO - Request from 127.0.0.1 by Anonymous: POST /api/music/init-default-playlists [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:40,607 - INFO - Request completed in 0.444s - Status: 200
+2026-02-19 21:59:40,607 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:40] "POST /api/music/init-default-playlists HTTP/1.1" 200 -
+2026-02-19 21:59:40,798 - INFO - Request from 127.0.0.1 by Anonymous: GET /api/music/playlists/global [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:40,800 - INFO - Request completed in 0.002s - Status: 200
+2026-02-19 21:59:40,801 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:40] "GET /api/music/playlists/global HTTP/1.1" 200 -
+2026-02-19 21:59:40,900 - INFO - Request from 127.0.0.1 by Anonymous: GET /api/music/playlists/my [Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac O]
+2026-02-19 21:59:40,901 - INFO - Request completed in 0.001s - Status: 200
+2026-02-19 21:59:40,901 - INFO - 127.0.0.1 - - [19/Feb/2026 21:59:40] "GET /api/music/playlists/my HTTP/1.1" 200 -
+2026-02-19 21:59:49,053 - INFO - Running job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 22:00:49 +03)" (scheduled at 2026-02-19 21:59:49.044637+03:00)
+2026-02-19 21:59:49,053 - INFO - Job "check_prayer_times_and_notify (trigger: interval[0:01:00], next run at: 2026-02-19 22:00:49 +03)" executed successfully
+2026-02-19 22:00:31,700 - INFO - Request from 127.0.0.1 by Anonymous: GET /dosya_analizi [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb]
+2026-02-19 22:00:33,779 - INFO - Request completed in 2.079s - Status: 200
+2026-02-19 22:00:33,779 - INFO - 127.0.0.1 - - [19/Feb/2026 22:00:33] "GET /dosya_analizi HTTP/1.1" 200 -
+2026-02-19 22:00:33,924 - INFO - Request from 127.0.0.1 by Anonymous: GET /dosya_analizi/api/ollama_modeller [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb]
+2026-02-19 22:00:34,004 - INFO - Request from 127.0.0.1 by Anonymous: GET /sw.js [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb]
+2026-02-19 22:00:34,004 - WARNING - 404 error: http://app.articnc.online/sw.js
+2026-02-19 22:00:34,060 - INFO - Request from 127.0.0.1 by Anonymous: GET /manifest.json [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb]
+2026-02-19 22:00:34,060 - WARNING - 404 error: http://app.articnc.online/manifest.json
+2026-02-19 22:00:34,145 - INFO - Request completed in 0.141s - Status: 404
+2026-02-19 22:00:34,145 - INFO - 127.0.0.1 - - [19/Feb/2026 22:00:34] "[33mGET /sw.js HTTP/1.1[0m" 404 -
+2026-02-19 22:00:34,299 - INFO - Request completed in 0.240s - Status: 404
+2026-02-19 22:00:34,300 - INFO - 127.0.0.1 - - [19/Feb/2026 22:00:34] "[33mGET /manifest.json HTTP/1.1[0m" 404 -
+2026-02-19 22:00:36,526 - INFO - Request completed in 2.602s - Status: 200
+2026-02-19 22:00:36,526 - INFO - 127.0.0.1 - - [19/Feb/2026 22:00:36] "GET /dosya_analizi/api/ollama_modeller HTTP/1.1" 200 -

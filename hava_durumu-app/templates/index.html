@@ -1,0 +1,892 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hava Durumu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0,0,0,0.2);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-btn, .location-btn {
+            background: #00b894;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .location-btn {
+            background: #e17055;
+        }
+
+        .search-btn:hover {
+            background: #00a085;
+        }
+
+        .location-btn:hover {
+            background: #d63031;
+        }
+
+        .favorites {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .fav-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.8;
+        }
+
+        .forecast-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .forecast-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .forecast-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .forecast-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .forecast-day {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .forecast-icon {
+            font-size: 24px;
+            margin: 5px 0;
+        }
+
+        .forecast-temps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+
+        .forecast-high {
+            font-weight: 700;
+        }
+
+        .forecast-low {
+            opacity: 0.7;
+        }
+
+        .forecast-desc {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .weather-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .city-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: 300;
+            margin: 20px 0;
+        }
+
+        .description {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .temperature {
+                font-size: 36px;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .favorites {
+                justify-content: center;
+            }
+
+            .forecast-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .forecast-item {
+                padding: 8px;
+            }
+
+            .forecast-icon {
+                font-size: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- PWA -->
+    <link rel="icon" type="image/svg+xml" href="static/icon-192.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0984e3">
+    <link rel="apple-touch-icon" href="static/icon-192.svg">
+    <meta name="application-name" content="Hava Durumu">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hava Durumu">
+</head>
+<body>
+    <div class="header">
+        
+        <div class="title">
+            <i class="fas fa-cloud-sun"></i> Hava Durumu
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-box">
+            <div class="search-row">
+                <input type="text" class="search-input" id="cityInput" placeholder="Şehir adı girin..." value="İstanbul">
+                <button class="search-btn" onclick="loadWeather()">
+                    <i class="fas fa-search"></i> Ara
+                </button>
+                <button class="location-btn" onclick="getCurrentLocation()">
+                    <i class="fas fa-location-arrow"></i> Konum
+                </button>
+            </div>
+            
+            <div class="favorites">
+                <span style="opacity: 0.8; margin-right: 8px;">Favoriler:</span>
+                <span id="favoritesList"></span>
+                <button class="fav-btn" onclick="addCurrentCityToFavorites()" title="Mevcut şehri favorilere ekle" style="background:#1d4ed8;margin-left:6px;">⭐ Favoriye Ekle</button>
+            </div>
+        </div>
+
+        <div id="loadingDiv" class="loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Konum alınıyor...</p>
+        </div>
+
+        <div class="weather-card" id="weatherCard">
+            <div class="city-name" id="cityName">İstanbul</div>
+            <div class="temperature" id="temperature">22°C</div>
+            <div class="description" id="description">☀️ Güneşli</div>
+            
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Hissedilen</div>
+                    <div class="detail-value" id="feelsLike">24°C</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Nem</div>
+                    <div class="detail-value" id="humidity">%65</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Rüzgar</div>
+                    <div class="detail-value" id="wind">12 km/h</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Basınç</div>
+                    <div class="detail-value" id="pressure">1013 hPa</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10 Günlük Hava Tahmini -->
+        <div class="forecast-section">
+            <div class="forecast-title">
+                <i class="fas fa-calendar-week"></i>
+                10 Günlük Hava Tahmini
+            </div>
+            <div class="forecast-grid" id="forecastGrid">
+                <!-- Tahmin kartları buraya eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.pathname.startsWith('/hava-durumu') ? '/hava-durumu' : '';
+        // Gerçekçi şehir hava durumu verileri (Temmuz 2025)
+        const weatherData = {
+            'istanbul': {
+                city: 'İstanbul',
+                temp: 28,
+                feels: 31,
+                humidity: 72,
+                wind: 18,
+                pressure: 1012,
+                desc: '🌤️ Nemli ve Sıcak',
+                forecast: [
+                    {day: 'Bugün', high: 28, low: 22, icon: '🌤️', desc: 'Nemli'},
+                    {day: 'Yarın', high: 30, low: 24, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Pazartesi', high: 26, low: 20, icon: '🌧️', desc: 'Sağanak'},
+                    {day: 'Salı', high: 29, low: 23, icon: '⛅', desc: 'Az Bulutlu'},
+                    {day: 'Çarşamba', high: 31, low: 25, icon: '☀️', desc: 'Güneşli'},
+                    {day: 'Perşembe', high: 27, low: 21, icon: '🌧️', desc: 'Yağışlı'},
+                    {day: 'Cuma', high: 32, low: 26, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Cumartesi', high: 28, low: 22, icon: '⛅', desc: 'Bulutlu'},
+                    {day: 'Pazar', high: 30, low: 24, icon: '🌤️', desc: 'Parçalı Açık'},
+                    {day: 'Pazartesi', high: 29, low: 23, icon: '☀️', desc: 'Güzel'}
+                ]
+            },
+            'ankara': {
+                city: 'Ankara',
+                temp: 32,
+                feels: 35,
+                humidity: 45,
+                wind: 12,
+                pressure: 1018,
+                desc: '☀️ Sıcak ve Kuru',
+                forecast: [
+                    {day: 'Bugün', high: 32, low: 18, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Yarın', high: 34, low: 20, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Pazartesi', high: 30, low: 16, icon: '⛅', desc: 'Az Bulutlu'},
+                    {day: 'Salı', high: 35, low: 21, icon: '☀️', desc: 'Kavurucu'},
+                    {day: 'Çarşamba', high: 31, low: 17, icon: '🌤️', desc: 'Güneşli'},
+                    {day: 'Perşembe', high: 33, low: 19, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Cuma', high: 29, low: 15, icon: '⛅', desc: 'Bulutlu'},
+                    {day: 'Cumartesi', high: 36, low: 22, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Pazar', high: 32, low: 18, icon: '🌤️', desc: 'İyi'},
+                    {day: 'Pazartesi', high: 34, low: 20, icon: '☀️', desc: 'Sıcak'}
+                ]
+            },
+            'izmir': {
+                city: 'İzmir',
+                temp: 33,
+                feels: 36,
+                humidity: 68,
+                wind: 22,
+                pressure: 1009,
+                desc: '☀️ Sıcak ve Rüzgarlı',
+                forecast: [
+                    {day: 'Bugün', high: 33, low: 25, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Yarın', high: 35, low: 27, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Pazartesi', high: 31, low: 23, icon: '⛅', desc: 'Bulutlu'},
+                    {day: 'Salı', high: 36, low: 28, icon: '☀️', desc: 'Kavurucu'},
+                    {day: 'Çarşamba', high: 34, low: 26, icon: '🌤️', desc: 'Güneşli'},
+                    {day: 'Perşembe', high: 37, low: 29, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Cuma', high: 32, low: 24, icon: '⛅', desc: 'Az Bulutlu'},
+                    {day: 'Cumartesi', high: 29, low: 21, icon: '🌧️', desc: 'Sağanak'},
+                    {day: 'Pazar', high: 38, low: 30, icon: '☀️', desc: 'Kavurucu'},
+                    {day: 'Pazartesi', high: 35, low: 27, icon: '🌤️', desc: 'Güzel'}
+                ]
+            },
+            'antalya': {
+                city: 'Antalya',
+                temp: 36,
+                feels: 40,
+                humidity: 78,
+                wind: 14,
+                pressure: 1007,
+                desc: '☀️ Çok Sıcak ve Nemli',
+                forecast: [
+                    {day: 'Bugün', high: 36, low: 28, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Yarın', high: 38, low: 30, icon: '☀️', desc: 'Kavurucu'},
+                    {day: 'Pazartesi', high: 34, low: 26, icon: '⛅', desc: 'Sıcak'},
+                    {day: 'Salı', high: 39, low: 31, icon: '☀️', desc: 'Aşırı Sıcak'},
+                    {day: 'Çarşamba', high: 37, low: 29, icon: '🌤️', desc: 'Çok Sıcak'},
+                    {day: 'Perşembe', high: 40, low: 32, icon: '☀️', desc: 'Kavurucu'},
+                    {day: 'Cuma', high: 35, low: 27, icon: '⛅', desc: 'Sıcak'},
+                    {day: 'Cumartesi', high: 32, low: 24, icon: '🌧️', desc: 'Sağanak'},
+                    {day: 'Pazar', high: 41, low: 33, icon: '☀️', desc: 'Aşırı Sıcak'},
+                    {day: 'Pazartesi', high: 38, low: 30, icon: '🌤️', desc: 'Çok Sıcak'}
+                ]
+            },
+            'bursa': {
+                city: 'Bursa',
+                temp: 29,
+                feels: 32,
+                humidity: 65,
+                wind: 15,
+                pressure: 1014,
+                desc: '⛅ Sıcak ve Nemli',
+                forecast: [
+                    {day: 'Bugün', high: 29, low: 20, icon: '⛅', desc: 'Nemli'},
+                    {day: 'Yarın', high: 31, low: 22, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Pazartesi', high: 27, low: 18, icon: '🌧️', desc: 'Yağışlı'},
+                    {day: 'Salı', high: 32, low: 23, icon: '🌤️', desc: 'Güneşli'},
+                    {day: 'Çarşamba', high: 30, low: 21, icon: '⛅', desc: 'Bulutlu'},
+                    {day: 'Perşembe', high: 33, low: 24, icon: '☀️', desc: 'Sıcak'},
+                    {day: 'Cuma', high: 28, low: 19, icon: '🌧️', desc: 'Sağanak'},
+                    {day: 'Cumartesi', high: 26, low: 17, icon: '☁️', desc: 'Bulutlu'},
+                    {day: 'Pazar', high: 34, low: 25, icon: '☀️', desc: 'Çok Sıcak'},
+                    {day: 'Pazartesi', high: 31, low: 22, icon: '🌤️', desc: 'İyi'}
+                ]
+            }
+        };
+
+        // GPS Konum Fonksiyonu
+        function normalizeCityKey(value) {
+            return String(value || '')
+                .toLowerCase()
+                .trim()
+                .replace('ı', 'i')
+                .replace('ğ', 'g')
+                .replace('ü', 'u')
+                .replace('ş', 's')
+                .replace('ö', 'o')
+                .replace('ç', 'c');
+        }
+
+        function fixMojibake(text) {
+            if (!text) return text;
+            const value = String(text);
+
+            try {
+                if (/Ã|Ä|Å|â/.test(value) && typeof TextDecoder !== 'undefined') {
+                    const bytes = Uint8Array.from(value, ch => ch.charCodeAt(0) & 0xff);
+                    const decoded = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+                    if (decoded && !decoded.includes('�')) {
+                        return decoded;
+                    }
+                }
+            } catch (e) {
+                // fallback replace below
+            }
+
+            return value
+                .replaceAll('Ã§', 'ç')
+                .replaceAll('Ã‡', 'Ç')
+                .replaceAll('Ä±', 'ı')
+                .replaceAll('Ä°', 'İ')
+                .replaceAll('Ã¼', 'ü')
+                .replaceAll('Ãœ', 'Ü')
+                .replaceAll('Ã¶', 'ö')
+                .replaceAll('Ã–', 'Ö')
+                .replaceAll('ÅŸ', 'ş')
+                .replaceAll('Åž', 'Ş')
+                .replaceAll('ÄŸ', 'ğ')
+                .replaceAll('Äž', 'Ğ')
+                .replaceAll('â€™', '’')
+                .replaceAll('â€“', '–')
+                .replaceAll('â€”', '—');
+        }
+
+        async function fetchWeatherFromApi(cityName) {
+            const response = await fetch(`${API_BASE}/api/weather?city=${encodeURIComponent(cityName)}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`API ${response.status}`);
+            }
+
+            const result = await response.json();
+            if (!result || result.status !== 'success' || !result.data || !result.data.current) {
+                throw new Error('Geçersiz API verisi');
+            }
+
+            return result.data;
+        }
+
+        function mapApiToUiData(apiData) {
+            const current = apiData.current || {};
+            const cityText = (current.location || 'İstanbul').split(',')[0].trim();
+
+            const forecast = Array.isArray(apiData.forecast)
+                ? apiData.forecast.map(item => ({
+                    day: fixMojibake(item.day || 'Tahmin'),
+                    high: Number(item.high ?? item.temperature ?? 0),
+                    low: Number(item.low ?? item.temperature ?? 0),
+                    icon: '⛅',
+                    desc: fixMojibake(item.description || 'Bilinmiyor')
+                }))
+                : [];
+
+            return {
+                city: fixMojibake(cityText),
+                temp: Number(current.temperature ?? 0),
+                feels: Number(current.feels_like ?? 0),
+                humidity: Number(current.humidity ?? 0),
+                wind: Number(current.wind_speed ?? 0),
+                pressure: Number(current.pressure ?? 0),
+                desc: fixMojibake(current.description || 'Bilinmiyor'),
+                forecast: forecast.length > 0 ? forecast : weatherData['istanbul'].forecast
+            };
+        }
+
+        function setLoadingState(isLoading) {
+            const loadingDiv = document.getElementById('loadingDiv');
+            loadingDiv.style.display = isLoading ? 'block' : 'none';
+        }
+
+        async function loadWeatherByCityName(cityName) {
+            const cityInput = document.getElementById('cityInput');
+            cityInput.value = cityName;
+            setLoadingState(true);
+
+            try {
+                const apiData = await fetchWeatherFromApi(cityName);
+                const uiData = mapApiToUiData(apiData);
+                updateWeatherDisplay(uiData);
+            } catch (error) {
+                try {
+                    const fallbackApiData = await fetchWeatherFromApi('Istanbul');
+                    updateWeatherDisplay(mapApiToUiData(fallbackApiData));
+                } catch (fallbackError) {
+                    updateWeatherDisplay(weatherData['istanbul']);
+                }
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        function getCurrentLocation() {
+            const loadingDiv = document.getElementById('loadingDiv');
+            
+            if (!navigator.geolocation) {
+                alert('Bu tarayıcı konum servisini desteklemiyor.');
+                return;
+            }
+
+            loadingDiv.style.display = 'block';
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    console.log('Konum alındı:', lat, lon);
+                    
+                    // Koordinatlara göre şehir belirleme (daha geniş aralıklar)
+                    let nearestCity = 'istanbul'; // varsayılan
+                    
+                    // İstanbul ve çevresi (Marmara Bölgesi)
+                    if (lat >= 40.5 && lat <= 41.5 && lon >= 28.0 && lon <= 30.0) {
+                        nearestCity = 'istanbul';
+                    }
+                    // Ankara ve çevresi (İç Anadolu)
+                    else if (lat >= 39.5 && lat <= 40.5 && lon >= 32.0 && lon <= 33.5) {
+                        nearestCity = 'ankara';
+                    }
+                    // İzmir ve çevresi (Ege Bölgesi)
+                    else if (lat >= 38.0 && lat <= 39.0 && lon >= 26.5 && lon <= 28.0) {
+                        nearestCity = 'izmir';
+                    }
+                    // Antalya ve çevresi (Akdeniz Bölgesi)
+                    else if (lat >= 36.5 && lat <= 37.5 && lon >= 30.0 && lon <= 31.5) {
+                        nearestCity = 'antalya';
+                    }
+                    // Bursa ve çevresi (Marmara Güneyi)
+                    else if (lat >= 39.8 && lat <= 40.8 && lon >= 28.5 && lon <= 29.8) {
+                        nearestCity = 'bursa';
+                    }
+                    // Eğer hiçbirine uymuyorsa, en yakın şehri hesapla
+                    else {
+                        // Şehir merkez koordinatları
+                        const cities = {
+                            'istanbul': {lat: 41.0082, lon: 28.9784},
+                            'ankara': {lat: 39.9334, lon: 32.8597},
+                            'izmir': {lat: 38.4192, lon: 27.1287},
+                            'antalya': {lat: 36.8969, lon: 30.7133},
+                            'bursa': {lat: 40.1826, lon: 29.0665}
+                        };
+                        
+                        let minDistance = Infinity;
+                        for (let city in cities) {
+                            const distance = Math.sqrt(
+                                Math.pow(lat - cities[city].lat, 2) + 
+                                Math.pow(lon - cities[city].lon, 2)
+                            );
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                nearestCity = city;
+                            }
+                        }
+                    }
+                    
+                    loadingDiv.style.display = 'none';
+                    loadCityWeather(nearestCity);
+                    
+                    console.log('GPS konumu: ' + nearestCity);
+                },
+                function(error) {
+                    loadingDiv.style.display = 'none';
+                    
+                    let errorMsg = 'Konum alınamadı: ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg += 'Konum izni reddedildi.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg += 'Konum bilgisi mevcut değil.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg += 'Konum alma işlemi zaman aşımına uğradı.';
+                            break;
+                        default:
+                            errorMsg += 'Bilinmeyen hata.';
+                            break;
+                    }
+                    alert(errorMsg + '\nVarsayılan şehir yükleniyor.');
+                    loadCityWeather('istanbul');
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
+                }
+            );
+        }
+
+        // Şehir hava durumunu yükle
+        function loadCityWeather(cityKey) {
+            const data = weatherData[cityKey];
+            
+            if (data) {
+                loadWeatherByCityName(data.city);
+            }
+        }
+
+        // Hava durumu verilerini güncelle
+        function updateWeatherDisplay(data) {
+            document.getElementById('cityName').textContent = data.city;
+            document.getElementById('temperature').textContent = data.temp + '°C';
+            document.getElementById('description').textContent = data.desc;
+            document.getElementById('feelsLike').textContent = data.feels + '°C';
+            document.getElementById('humidity').textContent = '%' + data.humidity;
+            document.getElementById('wind').textContent = data.wind + ' km/h';
+            document.getElementById('pressure').textContent = data.pressure + ' hPa';
+            
+            // 10 günlük tahmini güncelle
+            updateForecast(data.forecast);
+            
+            console.log('Hava durumu güncellendi:', data.city);
+        }
+
+        // 10 günlük tahmin görüntüle
+        function updateForecast(forecast) {
+            const forecastGrid = document.getElementById('forecastGrid');
+            forecastGrid.innerHTML = '';
+
+            forecast.forEach(day => {
+                const forecastItem = document.createElement('div');
+                forecastItem.className = 'forecast-item';
+                forecastItem.innerHTML = `
+                    <div class="forecast-day">${day.day}</div>
+                    <div class="forecast-icon">${day.icon}</div>
+                    <div class="forecast-temps">
+                        <span class="forecast-high">${day.high}°</span>
+                        <span class="forecast-low">${day.low}°</span>
+                    </div>
+                    <div class="forecast-desc">${day.desc}</div>
+                `;
+                forecastGrid.appendChild(forecastItem);
+            });
+        }
+
+        function loadWeather() {
+            const cityInput = document.getElementById('cityInput').value.trim();
+            const selectedCity = cityInput || 'İstanbul';
+            loadWeatherByCityName(selectedCity);
+        }
+
+        // Enter tuşu desteği
+        document.getElementById('cityInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadWeather();
+            }
+        });
+
+        // Sayfa yüklendiğinde İstanbul verilerini göster
+        window.onload = function() {
+            renderFavorites();
+            if (navigator.geolocation) {
+                getCurrentLocation();
+            } else {
+                loadWeather();
+            }
+        };
+
+        // Favori şehirler (localStorage)
+        const DEFAULT_FAVS = ['İstanbul','Ankara','İzmir','Antalya','Bursa'];
+
+        function getFavorites() {
+            try {
+                const saved = localStorage.getItem('hava_favoriler');
+                return saved ? JSON.parse(saved) : [...DEFAULT_FAVS];
+            } catch(e) { return [...DEFAULT_FAVS]; }
+        }
+
+        function saveFavorites(favs) {
+            try { localStorage.setItem('hava_favoriler', JSON.stringify(favs)); } catch(e) {}
+        }
+
+        function renderFavorites() {
+            const favs = getFavorites();
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+            container.innerHTML = '';
+            favs.forEach(city => {
+                const btn = document.createElement('button');
+                btn.className = 'fav-btn';
+                btn.textContent = '\uD83D\uDCCD ' + city;
+                btn.title = 'Şehri yükle';
+                btn.addEventListener('click', () => loadWeatherByCityName(city));
+
+                const del = document.createElement('button');
+                del.textContent = '✕';
+                del.style.cssText = 'background:rgba(255,60,60,0.3);border:none;color:#fff;border-radius:6px;padding:2px 6px;margin-left:4px;cursor:pointer;font-size:0.75rem;';
+                del.title = 'Favoriden çıkar';
+                del.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const updated = getFavorites().filter(c => c !== city);
+                    saveFavorites(updated);
+                    renderFavorites();
+                });
+
+                const wrap = document.createElement('span');
+                wrap.style.cssText = 'display:inline-flex;align-items:center;margin:3px 4px;';
+                wrap.appendChild(btn);
+                wrap.appendChild(del);
+                container.appendChild(wrap);
+            });
+        }
+
+        function addCurrentCityToFavorites() {
+            const cityName = (document.getElementById('cityName').textContent || '').trim();
+            if (!cityName) return;
+            const favs = getFavorites();
+            if (!favs.includes(cityName)) {
+                favs.push(cityName);
+                saveFavorites(favs);
+                renderFavorites();
+                alert('\u2B50 ' + cityName + ' favorilere eklendi!');
+            } else {
+                alert(cityName + ' zaten favorilerde.');
+            }
+        }
+    </script>
+
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(r => console.log('[PWA] SW aktif:', r.scope))
+                .catch(e => console.warn('[PWA] SW hatasi:', e));
+        });
+    }
+    </script>
+
+<!-- PWA Install Banner -->
+<div id="pwa-install-banner" style="
+    display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    background:rgba(20,20,30,0.96); color:#fff; border-radius:16px;
+    padding:14px 22px; box-shadow:0 8px 32px rgba(0,0,0,0.45);
+    z-index:99999; align-items:center; gap:14px;
+    font-family:-apple-system,system-ui,sans-serif; font-size:15px;
+    backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.12);
+    max-width:92vw; white-space:nowrap;">
+  <span style="font-size:22px">📲</span>
+  <span>Bu uygulamayı yükle</span>
+  <button id="pwa-install-btn" style="
+      background:linear-gradient(135deg,#667eea,#764ba2); color:#fff;
+      border:none; border-radius:10px; padding:8px 18px; font-size:14px;
+      font-weight:600; cursor:pointer; white-space:nowrap;">
+    Yükle
+  </button>
+  <button id="pwa-install-close" style="
+      background:rgba(255,255,255,0.15); color:#fff; border:none;
+      border-radius:8px; padding:8px 12px; font-size:13px; cursor:pointer;">
+    ✕
+  </button>
+</div>
+<script>
+(function(){
+  const DISMISSED_KEY = 'pwa_install_dismissed';
+  let deferredPrompt = null;
+  const banner = document.getElementById('pwa-install-banner');
+  const installBtn = document.getElementById('pwa-install-btn');
+  const closeBtn = document.getElementById('pwa-install-close');
+
+  // Zaten yuklu mu?
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true) return;
+
+  // Daha once kapatildiysa gosterme
+  if (sessionStorage.getItem(DISMISSED_KEY)) return;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    banner.style.display = 'flex';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    banner.style.display = 'none';
+    if (outcome === 'accepted') sessionStorage.setItem(DISMISSED_KEY, '1');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    banner.style.display = 'none';
+    sessionStorage.setItem(DISMISSED_KEY, '1');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+</body>
+</html>
