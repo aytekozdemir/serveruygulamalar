@@ -2,44 +2,25 @@ from flask import Flask
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from hava_durumu_app.app import app as hava_app
 
-app = Flask(__name__)
+# Ana portal uygulaması
+portal = Flask(__name__)
 
-@app.route('/')
+@portal.route('/')
 def home():
     return """
     <html>
-        <head>
-            <title>Akilli Uygulamalar Portali</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body { font-family: sans-serif; text-align: center; padding: 50px; background: #f0f2f5; color: #333; }
-                .container { max-width: 800px; margin: auto; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-                .card { padding: 30px; background: white; border-radius: 15px; text-decoration: none; color: #333; 
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s; display: block; }
-                .card:hover { transform: translateY(-5px); background: #eef2ff; }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1>AKILLI UYGULAMALAR</h1>
-                <p>Tum dijital araclariniza buradan erisebilirsiniz.</p>
-                <div class="grid">
-                    <a href="/hava" class="card">
-                        <h3>HAVA DURUMU</h3>
-                    </a>
-                </div>
-            </div>
+        <head><title>Akilli Uygulamalar</title></head>
+        <body style="font-family:sans-serif; text-align:center; padding:50px;">
+            <h1>🚀 AKILLI UYGULAMALAR PORTALI</h1>
+            <a href="/hava/" style="padding:20px; background:#007bff; color:white; text-decoration:none; border-radius:10px;">☀️ Hava Durumu Uygulamasını Aç</a>
         </body>
     </html>
     """
 
-# İŞTE KÖPRÜ BURASI: İki farklı uygulamayı (Portal ve Hava Durumu) birbirine bağlıyoruz
-app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
+# İki uygulamayı birleştiriyoruz:
+# Ana site / (portal) olacak, /hava ise hava_app olacak.
+app = DispatcherMiddleware(portal, {
     '/hava': hava_app
 })
 
-if __name__ == "__main__":
-    from werkzeug.serving import run_simple
-    run_simple('0.0.0.0', 8080, app, use_reloader=True)
+# Not: Gunicorn bu 'app' değişkenini görecek ve çalıştıracak.
